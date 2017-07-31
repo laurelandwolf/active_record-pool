@@ -10,7 +10,7 @@ module ActiveRecord
 
     # `query` is either an ActiveRecord query object or arel
     # `columns` is a list of columns you want to have during the transaction
-    # `table` is the table you want to talk to
+    # `table` is the Arel::Table that operations are cast against
     # `size` is the maximum number of running iterations in the pool, default: 24
     # `serializer` is the #dump duck for Array & Hash values, default: JSON
     # `model` is an ActiveRecord model
@@ -18,7 +18,7 @@ module ActiveRecord
     def initialize(query:, columns:, table:, size:, serializer:, model:, &transaction)
       @query = query
       @serializer = serializer
-      @table = Arel::Table.new(table)
+      @table = table
       qutex = Mutex.new
 
       queue = case

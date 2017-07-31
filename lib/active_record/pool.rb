@@ -64,7 +64,7 @@ module ActiveRecord
     end
 
     private def activerecord?
-      @query.kind_of?(ActiveRecord::Base) || @query.kind_of?(ActiveRecord::Relation) || @query < ActiveRecord::Base
+      @query.kind_of?(ActiveRecord::Base) || @query.kind_of?(ActiveRecord::Relation) || @query.try(:<, ActiveRecord::Base)
     end
 
     private def arel?
